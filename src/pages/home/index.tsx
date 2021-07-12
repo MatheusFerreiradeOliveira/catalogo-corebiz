@@ -63,7 +63,6 @@ interface itemInterface {
 }
 
 function Home() {
-  const [searchValue, setSearchValue] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [switchInfoComponent, setSwitchInfoComponent] = useState(false);
@@ -81,6 +80,9 @@ function Home() {
       .then((response) => {
         setStoreItems(response.data);
         setFilteredItems(response.data);
+        setNumItemsCart(
+          parseInt(window.localStorage.getItem('numItems') || '')
+        );
       });
   }, []);
 
@@ -142,6 +144,7 @@ function Home() {
   };
 
   const handleIncreaseItemsCart = () => {
+    window.localStorage.setItem('numItems', (numItemsCart + 1).toString());
     setNumItemsCart(numItemsCart + 1);
   };
 
